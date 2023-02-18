@@ -1,0 +1,187 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:FractalSurface.ViewModels"
+        xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+        xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="FractalSurface.Views.MainWindow"
+        Icon="/Assets/FS_LOGO.ico"
+        WindowState="Maximized"
+        Name="FSWindow"
+        Title="FractalSurface">
+  <i:Interaction.Behaviors>
+    <ia:EventTriggerBehavior EventName="Closing" SourceObject="{Binding #FSWindow}">
+      <ia:InvokeCommandAction Command="{Binding WindowClosingCommand}"/>
+    </ia:EventTriggerBehavior>
+  </i:Interaction.Behaviors>
+  <Window.Styles>
+    <Style Selector="HeaderedContentControl">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Border ZIndex="1" Padding="5,0,5,0" Margin="5,0,0,0">
+                <TextBlock TextBlock.FontWeight="Bold" Text="{TemplateBinding Header}" />
+              </Border>
+              <Border Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,10,0,0"
+                  BorderBrush="{TemplateBinding Background}"
+                  BorderThickness="1">
+                <ContentPresenter Content="{TemplateBinding Content}" />
+              </Border>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </Window.Styles>
+
+  <DockPanel Background="#E0F0E0" LastChildFill="True">
+    <Border Height="40" BorderBrush="#708070" BorderThickness="1" Background="#90A090" DockPanel.Dock="Top">
+      <Menu>
+        <MenuItem>
+          <MenuItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <Image Source="/Assets/File.png"/>
+              <TextBlock Margin="5 0" FontSize="20" VerticalAlignment="Center" Text="Файл"/>
+            </StackPanel>
+          </MenuItem.Header>
+          <MenuItem Header="Открыть файлы" Command="{Binding OpenFilesCommand}">
+            <MenuItem.Icon>
+              <Image Source="/Assets/OpenFolder.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="Сохранить файлы">
+            <MenuItem.Icon>
+              <Image Source="/Assets/Save.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="-"/>
+          <MenuItem Header="Экспорт данных">
+            <MenuItem.Icon>
+              <Image Source="/Assets/Export.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="-"/>
+          <MenuItem Header="Закрыть файлы">
+            <MenuItem.Icon>
+              <Image Source="/Assets/CloseAll.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
+        <MenuItem>
+          <MenuItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <Image Source="/Assets/Chart.png"/>
+              <TextBlock Margin="5 0" FontSize="20" VerticalAlignment="Center" Text="Графики"/>
+            </StackPanel>
+          </MenuItem.Header>
+        </MenuItem>
+        <MenuItem>
+          <MenuItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <Image Source="/Assets/Methods.png"/>
+              <TextBlock Margin="5 0" FontSize="20" VerticalAlignment="Center" Text="Методы"/>
+            </StackPanel>
+          </MenuItem.Header>
+          <MenuItem Header="Метод подсчёта кубов">
+            <MenuItem.Icon>
+              <Image Source="/Assets/BoxCounting.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="Метод триангуляции">
+            <MenuItem.Icon>
+              <Image Source="/Assets/Triangulation.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
+        <MenuItem>
+          <MenuItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <Image Source="/Assets/Filters.png"/>
+              <TextBlock Margin="5 0" FontSize="20" VerticalAlignment="Center" Text="Фильтры"/>
+            </StackPanel>
+          </MenuItem.Header>
+          <MenuItem Header="Сглаживание">
+            <MenuItem.Icon>
+              <Image Source="/Assets/Smooth.png"/>
+            </MenuItem.Icon>
+            <MenuItem Header="Gaussian">
+              <MenuItem Header="3x3 0.391"/>
+              <MenuItem Header="3x3 0.85"/>
+              <MenuItem Header="5x5 0.625"/>
+              <MenuItem Header="5x5 1.0"/>
+            </MenuItem>
+            <MenuItem Header="Uniform">
+              <MenuItem Header="3x3"/>
+              <MenuItem Header="5x5"/>
+            </MenuItem>
+          </MenuItem>
+          <MenuItem Header="Резкость">
+            <MenuItem.Icon>
+              <Image Source="/Assets/Sharpness.png"/>
+            </MenuItem.Icon>
+            <MenuItem Header="Kirsch">
+              <MenuItem Header="3x3"/>
+              <MenuItem Header="3x3 Vertical"/>
+              <MenuItem Header="3x3 Horizontal"/>
+            </MenuItem>
+            <MenuItem Header="Sobel">
+              <MenuItem Header="3x3"/>
+              <MenuItem Header="3x3 Vertical"/>
+              <MenuItem Header="3x3 Horizontal"/>
+            </MenuItem>
+            <MenuItem Header="Prewitt">
+              <MenuItem Header="3x3"/>
+              <MenuItem Header="3x3 Vertical"/>
+              <MenuItem Header="3x3 Horizontal"/>
+            </MenuItem>
+            <MenuItem Header="Sharpen 3x3"/>
+          </MenuItem>
+          <MenuItem Header="Контраст">
+            <MenuItem.Icon>
+              <Image Source="/Assets/Contrast.png"/>
+            </MenuItem.Icon>
+            <MenuItem Header="Laplacian">
+              <MenuItem Header="3x3"/>
+              <MenuItem Header="5x5"/>
+            </MenuItem>
+            <MenuItem Header="Highpass">
+              <MenuItem Header="5x5 Type 1"/>
+              <MenuItem Header="5x5 Type 2"/>
+            </MenuItem>
+          </MenuItem>
+          <MenuItem Header="Инвертировать цвета">
+            <MenuItem.Icon>
+              <Image Source="/Assets/Inverse.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="Перевести в оттенки серого">
+            <MenuItem.Icon>
+              <Image Source="/Assets/Grayscale.png"/>
+            </MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
+        <MenuItem>
+          <MenuItem.Header>
+            <StackPanel Orientation="Horizontal">
+              <Image Source="/Assets/Crop.png"/>
+              <TextBlock Margin="5 0" FontSize="20" VerticalAlignment="Center" Text="Кадрирование"/>
+            </StackPanel>
+          </MenuItem.Header>
+        </MenuItem>
+      </Menu>
+    </Border>
+    <ContentControl Content="{Binding CurrentViewModel}"/>
+  </DockPanel>
+
+</Window>

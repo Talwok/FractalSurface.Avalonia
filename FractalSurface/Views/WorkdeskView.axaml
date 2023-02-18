@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="FractalSurface.Views.WorkdeskView">
+  <DockPanel Background="#E0F0E0" LastChildFill="True">
+    <Border BorderBrush="#708070" BorderThickness="1" Background="#90A090" DockPanel.Dock="Right">
+      <DockPanel Margin="5 5 5 0" LastChildFill="True" Width="300">
+        <TextBlock DockPanel.Dock="Top" Text="Обозреватель файлов"/>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+          <Button Background="Transparent" Height="28" Width="28">
+            <Image Source="/Assets/SelectAll.png" Height="20" Width="20"/>
+          </Button>
+          <Button Background="Transparent" Height="28" Width="28">
+            <Image Source="/Assets/DeselectAll.png" Height="20" Width="20"/>
+          </Button>
+          <Button Background="Transparent" Height="28" Width="28">
+            <Image Source="/Assets/Delete.png" Height="20" Width="20"/>
+          </Button>
+          <Button Background="Transparent" Height="28" Width="28">
+            <Image Source="/Assets/Back.png" Height="20" Width="20"/>
+          </Button>
+          <Button Background="Transparent" Height="28" Width="28">
+            <Image Source="/Assets/Forward.png" Height="20" Width="20"/>
+          </Button>
+        </StackPanel>
+        <ProgressBar Margin="0 1" DockPanel.Dock="Bottom" Height="20"/>
+        <TreeView Background="#E0F0E0">
+        </TreeView>
+      </DockPanel>
+    </Border>
+    <Border BorderBrush="#708070" BorderThickness="1" Background="#90A090" DockPanel.Dock="Top">
+      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+        <Button Background="Transparent">
+          <Image Height="18" Width="18" Source="/Assets/Accept.png"/>
+        </Button>
+        <Panel Margin="2" Background="#809080" Width="2"/>
+        <Button Background="Transparent">
+          <Image Height="18" Width="18" Source="/Assets/Return.png"/>
+        </Button>
+      </StackPanel>
+    </Border>
+    <Border BorderBrush="#708070" BorderThickness="1" Background="#90A090" DockPanel.Dock="Bottom">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Margin="2" Text="Имя:"/>
+        <TextBlock Margin="2" Text="Разрешение:"/>
+        <TextBlock Margin="2" Text="Дата изменения:"/>
+        <TextBlock Margin="2" Text="Тип:"/>
+        <TextBlock Margin="2" Text="Последний фильтр:"/>
+      </StackPanel>
+    </Border>
+    <Image/>
+  </DockPanel>
+</UserControl>

@@ -1,0 +1,17 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:FractalSurface.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="FractalSurface.Views.RecentsView">
+  <DockPanel Background="#E0F0E0">
+    
+    <TextBlock DockPanel.Dock="Top" FontSize="20" Margin="10" Text="Ранее открытые:"/>
+    <TextBlock DockPanel.Dock="Bottom" FontSize="20" Margin="10" Text="{Binding RecentItems.Count, StringFormat='Всего элементов: {0}'}"/>
+
+    <ListBox Background="Transparent" Items="{Binding RecentItems}" Margin="10">
+    </ListBox>
+  </DockPanel>
+
+</UserControl>
