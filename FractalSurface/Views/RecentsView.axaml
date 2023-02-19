@@ -2,16 +2,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+             xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
              xmlns:views="clr-namespace:FractalSurface.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FractalSurface.Views.RecentsView">
+
   <DockPanel Background="#E0F0E0">
+    <Grid DockPanel.Dock="Top">
+      <TextBlock FontSize="20" Margin="10" Text="Ранее открытые:"/>
+      <Button Command="{Binding ClearRecentsCommand}" Margin="10" HorizontalAlignment="Right">
+        <StackPanel Orientation="Horizontal">
+          <Image Source="/Assets/Delete.png" Width="20"/>
+          <TextBlock VerticalAlignment="Center" Text="Очистить"/>
+        </StackPanel>
+      </Button>  
+    </Grid>
     
-    <TextBlock DockPanel.Dock="Top" FontSize="20" Margin="10" Text="Ранее открытые:"/>
     <TextBlock DockPanel.Dock="Bottom" FontSize="20" Margin="10" Text="{Binding RecentItems.Count, StringFormat='Всего элементов: {0}'}"/>
-
-    <ListBox Background="Transparent" Items="{Binding RecentItems}" Margin="10">
-    </ListBox>
+    <ListBox Background="Transparent" Items="{Binding RecentItems}" SelectedItem="{Binding SelectedRecentItem}" Margin="10"/>
   </DockPanel>
-
 </UserControl>

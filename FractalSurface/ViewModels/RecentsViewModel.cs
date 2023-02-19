@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FractalSurface.Services;
+using ReactiveUI;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reactive;
 
 namespace FractalSurface.ViewModels;
 
-[Serializable]
 public class RecentsViewModel : ViewModelBase
 {
-    public ObservableCollection<RecentItemViewModel> RecentItems { get; set; } = new ObservableCollection<RecentItemViewModel>();
+    public ObservableCollection<RecentItemViewModel> RecentItems { get; set; } = RecentsSerializer.Deserialize();
+
+    public RecentItemViewModel SelectedRecentItem { get; set; }
+
+    public ReactiveCommand<Unit, Unit> ClearRecentsCommand { get; }
+
+    public RecentsViewModel()
+    {
+        ClearRecentsCommand = ReactiveCommand.Create(ClearRecents);
+    }
+
+    private void ClearRecents()
+    {
+        RecentItems.Clear();
+        RecentItems.Reload();
+    }
 }

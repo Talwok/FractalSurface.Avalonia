@@ -15,7 +15,11 @@
     <ia:EventTriggerBehavior EventName="Closing" SourceObject="{Binding #FSWindow}">
       <ia:InvokeCommandAction Command="{Binding WindowClosingCommand}"/>
     </ia:EventTriggerBehavior>
+    <ia:EventTriggerBehavior EventName="DoubleTapped" SourceObject="{Binding #RecentItemDockPanel}">
+      <ia:InvokeCommandAction Command="{Binding OpenRecentFilesCommand}"/>
+    </ia:EventTriggerBehavior>
   </i:Interaction.Behaviors>
+
   <Window.Styles>
     <Style Selector="HeaderedContentControl">
       <Setter Property="Template">
@@ -72,7 +76,7 @@
             </MenuItem.Icon>
           </MenuItem>
           <MenuItem Header="-"/>
-          <MenuItem Header="Закрыть файлы">
+          <MenuItem Command="{Binding CloseFilesCommand}" Header="Закрыть файлы">
             <MenuItem.Icon>
               <Image Source="/Assets/CloseAll.png"/>
             </MenuItem.Icon>

@@ -2,54 +2,78 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:paz="using:Avalonia.Controls.PanAndZoom"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="FractalSurface.Views.WorkdeskView">
-  <DockPanel Background="#E0F0E0" LastChildFill="True">
-    <Border BorderBrush="#708070" BorderThickness="1" Background="#90A090" DockPanel.Dock="Right">
-      <DockPanel Margin="5 5 5 0" LastChildFill="True" Width="300">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="2*" MinWidth="450"/>
+      <ColumnDefinition Width="4"/>
+      <ColumnDefinition Width="1*" MinWidth="250"/>
+    </Grid.ColumnDefinitions>
+    <Grid Grid.Column="0" RowDefinitions="30, 1*, 24">
+        <Border Grid.Row="0" BorderBrush="#708070" BorderThickness="1" Background="#90A090">
+          <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Background="Transparent">
+              <Image Height="18" Width="18" Source="/Assets/Accept.png"/>
+            </Button>
+            <Panel Margin="2" Background="#809080" Width="2"/>
+            <Button Background="Transparent">
+              <Image Height="18" Width="18" Source="/Assets/Return.png"/>
+            </Button>
+          </StackPanel>
+        </Border>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+
+          <paz:ZoomBorder Stretch="None" ZoomSpeed="1.5" PowerFactor="1" PanButton="Left"
+                              Background="LightGray" EnablePan="True" EnableZoom="True"
+                              ClipToBounds="True" Focusable="True" EnableConstrains="True"
+                              VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Image Source="{Binding RecentItem.Picture}"/>
+          </paz:ZoomBorder>
+        </ScrollViewer>
+        <Border Grid.Row="2" BorderBrush="#708070" BorderThickness="1" Background="#90A090">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="4" Text="{Binding RecentItem.PictureName, StringFormat='Имя: {0}'}"/>
+            <Panel Background="#708070" Width="2"/>
+            <TextBlock Margin="4" Text="{Binding RecentItem.PictureResolution, StringFormat='Разрешение: [{0}]'}"/>
+            <Panel Background="#708070" Width="2"/>
+            <TextBlock Margin="4" Text="{Binding RecentItem.PictureLastWriteDate, StringFormat='Дата изменения: {0}'}"/>
+            <Panel Background="#708070" Width="2"/>
+            <TextBlock Margin="4" Text="{Binding RecentItem.PictureType, StringFormat='Тип: {0}'}"/>
+            <Panel Background="#708070" Width="2"/>
+            <TextBlock Margin="4" Text="Последний фильтр:"/>
+          </StackPanel>
+        </Border>
+      </Grid>
+    <GridSplitter Grid.Column="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#708070"/>
+    <Border Grid.Column="2" BorderBrush="#708070" BorderThickness="1" Background="#90A090">
+      <DockPanel Margin="5 5 5 0" LastChildFill="True">
         <TextBlock DockPanel.Dock="Top" Text="Обозреватель файлов"/>
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-          <Button Background="Transparent" Height="28" Width="28">
+          <Button Command="{Binding CheckAllCommand}" Background="Transparent" Height="28" Width="28">
             <Image Source="/Assets/SelectAll.png" Height="20" Width="20"/>
           </Button>
-          <Button Background="Transparent" Height="28" Width="28">
+          <Button Command="{Binding UncheckAllCommand}" Background="Transparent" Height="28" Width="28">
             <Image Source="/Assets/DeselectAll.png" Height="20" Width="20"/>
           </Button>
-          <Button Background="Transparent" Height="28" Width="28">
+          <Button Command="{Binding RemoveElementCommand}" Background="Transparent" Height="28" Width="28">
             <Image Source="/Assets/Delete.png" Height="20" Width="20"/>
           </Button>
-          <Button Background="Transparent" Height="28" Width="28">
+          <Button Command="{Binding MoveBackwardCommand}" Background="Transparent" Height="28" Width="28">
             <Image Source="/Assets/Back.png" Height="20" Width="20"/>
           </Button>
-          <Button Background="Transparent" Height="28" Width="28">
+          <Button Command="{Binding MoveForwardCommand}" Background="Transparent" Height="28" Width="28">
             <Image Source="/Assets/Forward.png" Height="20" Width="20"/>
           </Button>
         </StackPanel>
         <ProgressBar Margin="0 1" DockPanel.Dock="Bottom" Height="20"/>
-        <TreeView Background="#E0F0E0">
-        </TreeView>
+        <ListBox SelectedIndex="{Binding RecentItem.SelectedPictureIndex, Mode=Default}"
+                 SelectedItem="{Binding RecentItem.SelectedPicture, Mode=TwoWay}"
+                 Items="{Binding RecentItem.Pictures, Mode=TwoWay}"
+                 Background="#E0F0E0"/>
       </DockPanel>
     </Border>
-    <Border BorderBrush="#708070" BorderThickness="1" Background="#90A090" DockPanel.Dock="Top">
-      <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-        <Button Background="Transparent">
-          <Image Height="18" Width="18" Source="/Assets/Accept.png"/>
-        </Button>
-        <Panel Margin="2" Background="#809080" Width="2"/>
-        <Button Background="Transparent">
-          <Image Height="18" Width="18" Source="/Assets/Return.png"/>
-        </Button>
-      </StackPanel>
-    </Border>
-    <Border BorderBrush="#708070" BorderThickness="1" Background="#90A090" DockPanel.Dock="Bottom">
-      <StackPanel Orientation="Horizontal">
-        <TextBlock Margin="2" Text="Имя:"/>
-        <TextBlock Margin="2" Text="Разрешение:"/>
-        <TextBlock Margin="2" Text="Дата изменения:"/>
-        <TextBlock Margin="2" Text="Тип:"/>
-        <TextBlock Margin="2" Text="Последний фильтр:"/>
-      </StackPanel>
-    </Border>
-    <Image/>
-  </DockPanel>
+  </Grid>
+  
 </UserControl>
